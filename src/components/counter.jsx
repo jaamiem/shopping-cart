@@ -1,40 +1,46 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {
-	state = {
-		id: 1,
-		count: 0,
-		img: 'http://placekitten.com/200/300',
-	}
 
 	onClick = (e) => {
-		let value = parseInt(e.currentTarget.value);
-		// value = parseInt(value)
-		this.setState({ count: this.state.count + value });
+		const {value} = this.state;
+		let incr = parseInt(e.currentTarget.value);
+		if(value + incr >= 0) {
+			this.setState({ value: value + incr  });
+		}
 	}
 
 	render() {
-		let classes = {
-			count: "badge m-2 badge-",
-			button: "btn btn-secondary btn-sm m-1",
-		}
-		classes.count += (this.state.count === 0) ? "warning" : "primary";
-
 		return (
-			<React.Fragment>
-				<img src={this.state.img} alt="" />
-				<container> 
-					<span className={classes.count}>{this.formatCount()}</span>
-				</container>
-				<button value="1" className={classes.button} onClick={this.onClick}>+</button>
-				<button value="-1" className={classes.button} onClick={this.onClick}>-</button>
-			</React.Fragment>
+			<div style={{ display: 'flex', flexWrap: 'wrap'}}>
+				<span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+				<button 
+				value="1" 
+				className="btn btn-secondary btn-sm m-1" 
+				onClick={(e) => this.props.onValueChange(e, this.props.counter)} 
+				>+</button>
+				<button 
+				value="-1" 
+				className="btn btn-secondary btn-sm m-1" 
+				onClick={(e) => this.props.onValueChange(e, this.props.counter)} 
+				>-</button>
+				<button 
+				onClick={() => this.props.onDelete(this.props.counter.id)} 
+				className="btn btn-danger btn-sm m-2"
+				>Delete</button>
+			</div>
 		);
 	}
 
 	formatCount() {
-		const { count } = this.state;
-		return count === 0 ? <h1>Zero</h1> : <h1>{count}</h1>;
+		const { value } = this.props.counter;
+		return value === 0 ? <h1>Zero</h1> : <h1>{value}</h1>;
+	}
+
+	getBadgeClasses() {
+		let classes = "badge m-2 badge-";
+		classes += (this.props.counter.value === 0) ? "warning" : "primary";
+		return classes;
 	}
 }
 
