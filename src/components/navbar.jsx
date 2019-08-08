@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 class NavBar extends Component {
     render() { 
         return (
-          <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+          <nav className="navbar fixed-top navbar-dark bg-dark navbar-expand-lg">
             <span className="navbar-brand h1">Shopping Cart</span>
             <div>
-              <ul className='navbar-nav ml-auto'>
-                <li className="nav-item active">
+              <ul className='navbar-nav'>
+                <li className="nav-item active mr-4">
                   <Link className="nav-link" to="/">Store<span className="sr-only">(current)</span></Link>
                 </li>
                 <li className="nav-item active">
