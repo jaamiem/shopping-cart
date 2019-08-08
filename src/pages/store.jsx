@@ -20,10 +20,6 @@ class Home extends Component {
       .then(res => this.setState({ items: res.data }) );
   }
 
-  handleCardSelect = (id) => {
-    
-  }
-
   render() { 
     return ( 
       <div style={cardViewStyles}>
@@ -31,7 +27,7 @@ class Home extends Component {
           <StoreCard 
             key={item.id}
             item={item}
-            onCardSelect={this.handleCardSelect} /> )}
+            onAddToBasket={this.props.handleAddToBasket} /> )}
       </div>
     );
   }

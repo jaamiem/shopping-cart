@@ -13,17 +13,21 @@ function formatContent(content, cutoff) {
 
 class StoreCard extends Component {
   state = {
-    dialogVisible: false
+    dialogVisible: false,
   }
 
   render() { 
     const header = (
-      <img alt='card' src='http://placekitten.com/180/100' />
+      <img alt='Cat' src='https://picsum.photos/180/100' />
     );
 
     const item = this.props.item;
-    const title = formatContent(item.title, 15);
-    const content = formatContent(item.body, 100);
+    const abridgedTitle = formatContent(item.title, 25);
+    const abridgedContent = formatContent(item.body, 100);
+
+    const footer = (
+      <button className='btn btn-outline-info btn-sm' onClick={this.props.onAddToBasket}> <i className='pi pi-check'/> Add to Basket</button>
+    );
 
     return (
       <React.Fragment>
@@ -32,20 +36,24 @@ class StoreCard extends Component {
           onClick={() => this.setState({ dialogVisible: true })} >
           <Card 
             header={header}
-            title={title} 
-            subTitle={'#'+item.id} 
+            footer={footer}
+            title={'#'+item.id} 
+            subTitle={abridgedTitle}
+            style={{ title: { color: 'red' }}}
             className='ui-card-shadow'> 
-            {content}
+            {abridgedContent}
           </Card>
         </div>
         <Dialog 
-          header="Header Text" 
+          header={item.title}
+          footer={footer}
           visible={this.state.dialogVisible} 
           style={{width: '50vw'}} 
           modal={true} 
           dismissableMask={true}
-          onHide={() => this.setState({ dialogVisible: false })}>
-          Content
+          onHide={() => this.setState({ dialogVisible: false })}
+          >
+          {item.body}
         </Dialog>
       </React.Fragment>
     );
@@ -54,9 +62,12 @@ class StoreCard extends Component {
 
 const cardStyle = {
   flex: '0 2 15%',
+  minWidth: '250px',
   margin: '1rem .25em',
   cursor: 'pointer',
-  userSelect: 'none',
+  MozUserSelect: 'none',
+  WebkitUserSelect: 'none',
+  msUserSelect: 'none',
 }
  
 export default StoreCard;
