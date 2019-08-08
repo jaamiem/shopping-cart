@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import axios from 'axios'
+
 import NavBar from './components/navbar.jsx';
 import Counters from './components/counters.jsx';
+import Store from './pages/store.jsx';
+import NoMatch from './pages/noMatch.jsx';
 import './App.css';
 
 function App() {
@@ -38,19 +42,29 @@ function App() {
 
 	return (
 		<React.Fragment>
+	
 			<Router>
 				<NavBar />
-				<Route
-					path='/basket'
-					render={(props) =>
-						<Counters 
-							counters={counterList}
-							onReset={handleReset} 
-							onValueChange={handleValueChange}
-							onDelete={handleDelete} 
+				<div className='wrapper'>
+					<Switch>
+						<Route
+							path='/' exact
+							component={Store}
 						/>
-					}
-				/>
+						<Route
+							path='/basket'
+							render={(props) =>
+								<Counters 
+									counters={counterList}
+									onReset={handleReset} 
+									onValueChange={handleValueChange}
+									onDelete={handleDelete} 
+								/>
+							}
+						/>
+						<Route exact component={NoMatch} />
+					</Switch>
+				</div>
 			</Router>
 		</React.Fragment>
 	);
