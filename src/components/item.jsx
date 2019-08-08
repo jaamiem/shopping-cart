@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+
+
 class Item extends Component {
 
 	// onClick = (e) => {
@@ -11,24 +13,37 @@ class Item extends Component {
 	// }
 
 	render() {
+		const item = this.props.item;
+
 		return (
-			<div style={{ display: 'flex', flexWrap: 'wrap'}}>
-				<span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-				<button 
-				value="1" 
-				className="btn btn-secondary btn-sm m-1" 
-				onClick={(e) => this.props.onValueChange(e, this.props.item)} 
-				>+</button>
-				<button 
-				value="-1" 
-				className="btn btn-secondary btn-sm m-1" 
-				onClick={(e) => this.props.onValueChange(e, this.props.item)} 
-				>-</button>
-				<button 
-				onClick={() => this.props.onDelete(this.props.item.id)} 
-				className="btn btn-danger btn-sm m-2"
-				>Delete</button>
+			<div>
+				<h3>{item.title}</h3>
 			</div>
+
+
+			// <div style={{ display: 'flex', flexWrap: 'wrap'}}>
+			// 	<span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+			// 	<button 
+			// 		value="1" 
+			// 		className="btn btn-secondary btn-sm m-1" 
+			// 		onClick={(e) => this.props.onValueChange(e, this.props.item)} 
+			// 	>
+			// 		+
+			// 	</button>
+			// 	<button 
+			// 		value="-1" 
+			// 		className="btn btn-secondary btn-sm m-1" 
+			// 		onClick={(e) => this.props.onValueChange(e, this.props.item)} 
+			// 	>
+			// 		-
+			// 	</button>
+			// 	<button 
+			// 		onClick={() => this.props.onDelete(this.props.item.id)} 
+			// 		className="btn btn-danger btn-sm m-2"
+			// 	>
+			// 	Delete
+			// 	</button>
+			// </div>
 		);
 	}
 

@@ -18,35 +18,43 @@ class StoreCard extends Component {
 
   render() { 
     const header = (
-      <img alt='Cat' src='https://picsum.photos/180/100' />
+      <img alt='Cat' src='http://placekitten.com/180/100' />
     );
+
+    const basketButton = (
+      <button className='btn btn-info btn-sm' onClick={this.props.onAddToBasket}> <i className='pi pi-check'/> Add to Basket</button>
+    )
 
     const item = this.props.item;
     const abridgedTitle = formatContent(item.title, 25);
     const abridgedContent = formatContent(item.body, 100);
 
     const footer = (
-      <button className='btn btn-outline-info btn-sm' onClick={this.props.onAddToBasket}> <i className='pi pi-check'/> Add to Basket</button>
+      <div>
+        <button 
+          className="btn btn-outline-secondary btn-sm mr-2" 
+          onClick={() => this.setState({ dialogVisible: true })}
+        >Quick View</button>
+        {basketButton}
+      </div>
     );
 
+    //
     return (
       <React.Fragment>
-        <div 
-          style={cardStyle}
-          onClick={() => this.setState({ dialogVisible: true })} >
+        <div style={cardStyle}>
           <Card 
-            header={header}
-            footer={footer}
-            title={'#'+item.id} 
-            subTitle={abridgedTitle}
-            style={{ title: { color: 'red' }}}
-            className='ui-card-shadow'> 
+          header={header}
+          footer={footer}
+          title={'#'+item.id} 
+          subTitle={abridgedTitle}
+          className='ui-card-shadow'> 
             {abridgedContent}
           </Card>
         </div>
         <Dialog 
           header={item.title}
-          footer={footer}
+          footer={basketButton}
           visible={this.state.dialogVisible} 
           style={{width: '50vw'}} 
           modal={true} 
@@ -64,7 +72,7 @@ const cardStyle = {
   flex: '0 2 15%',
   minWidth: '250px',
   margin: '1rem .25em',
-  cursor: 'pointer',
+  // cursor: 'pointer',
   MozUserSelect: 'none',
   WebkitUserSelect: 'none',
   msUserSelect: 'none',

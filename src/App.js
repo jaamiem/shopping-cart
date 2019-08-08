@@ -9,6 +9,11 @@ import NoMatch from './pages/noMatch.jsx';
 import './App.css';
 
 function App() {
+	// componentDidMount() {
+  //   axios.get('https://jsonplaceholder.typicode.com/posts?_limit=17')
+  //     .then(res => this.setState({ items: res.data }) );
+  // }
+
 	const [basketList, changeList] = useState([
 		{ id: 1, value: 0,},
 		{ id: 2, value: 1,},
