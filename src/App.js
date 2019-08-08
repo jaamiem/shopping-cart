@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/navbar.jsx';
 import Counters from './components/counters.jsx';
 import './App.css';
@@ -37,15 +38,20 @@ function App() {
 
 	return (
 		<React.Fragment>
-			<NavBar />
-			<main className="container">
-				<Counters 
-					counters={counterList}
-					onReset={handleReset} 
-					onValueChange={handleValueChange}
-					onDelete={handleDelete} 
+			<Router>
+				<NavBar />
+				<Route
+					path='/basket'
+					render={(props) =>
+						<Counters 
+							counters={counterList}
+							onReset={handleReset} 
+							onValueChange={handleValueChange}
+							onDelete={handleDelete} 
+						/>
+					}
 				/>
-			</main>
+			</Router>
 		</React.Fragment>
 	);
 }
