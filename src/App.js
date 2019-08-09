@@ -39,12 +39,12 @@ function App() {
 	// Handles incrementing/decrementing basket items
 	const handleValueChange = (e, item) => {
 		const valueChange = parseInt(e.currentTarget.value);
-		if(item.value + valueChange < 0) return;
+		if(item.quantity + valueChange < 1) return;
 	
 		const basket = [...basketList];
 		const index = basket.indexOf(item);
 		basket[index] = {...item};
-		basket[index].value += valueChange;
+		basket[index].quantity += valueChange;
 		changeBasket( basket );
 	}
 

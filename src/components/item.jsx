@@ -35,6 +35,7 @@ class Item extends Component {
 						className='btn btn-secondary btn-sm m-1 pi pi-plus'
 						onClick={(e) => this.props.onValueChange(e, this.props.item)} 
 					/>
+					{item.quantity}
 					<button 
 						value='-1' 
 						className='btn btn-secondary btn-sm m-1 pi pi-minus'
