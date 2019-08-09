@@ -16,8 +16,32 @@ class Item extends Component {
 		const item = this.props.item;
 
 		return (
-			<div>
-				<h3>{item.title}</h3>
+			<div className='item-div'>
+				<div className='item-buttons'>
+					<i className='pi pi-times'/>
+				</div>
+
+				<div className='item-img'>
+					<img src='http://placekitten.com/50/50' alt='Cat.' />
+				</div>
+
+				<div className='item-desc'>
+					<span>{item.title}</span>
+				</div>
+
+				<div className='item-quantity'>
+					<button 
+						value='1' 
+						className='btn btn-secondary btn-sm m-1 pi pi-plus'
+						onClick={(e) => this.props.onValueChange(e, this.props.item)} 
+					/>
+					<button 
+						value='-1' 
+						className='btn btn-secondary btn-sm m-1 pi pi-minus'
+						onClick={(e) => this.props.onValueChange(e, this.props.item)} 
+					/>
+				</div>
+
 			</div>
 
 

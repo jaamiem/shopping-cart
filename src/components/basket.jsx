@@ -6,9 +6,9 @@ class Basket extends Component {
 		return (
 		<div>
 			<button 
-				onClick={this.props.onReset}
-				className="btn btn-primary btn-sm m-2"
-			>Reset</button>
+				onClick={this.props.onClear}
+				className="btn btn-danger btn-sm m-2"
+			>Empty Basket</button>
 			{ this.props.basket.map(item => 
 				<Item
 					key={item.id}

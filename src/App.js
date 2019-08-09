@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import axios from 'axios'
+import axios from 'axios'
 
 import NavBar from './components/navbar.jsx';
 import Basket from './components/basket.jsx';
@@ -9,31 +9,34 @@ import NoMatch from './pages/noMatch.jsx';
 import './App.css';
 
 function App() {
-	// componentDidMount() {
-  //   axios.get('https://jsonplaceholder.typicode.com/posts?_limit=17')
-  //     .then(res => this.setState({ items: res.data }) );
-  // }
+	// Init states
+	const [basketList, changeBasket] = useState([]);
+	const [itemList, changeItemList] = useState([]);
 
-	const [basketList, changeList] = useState([
-		{ id: 1, value: 0,},
-		{ id: 2, value: 1,},
-		{ id: 3, value: 2,},
-		{ id: 4, value: 3,},
-	]);
+	// Hooks version of 'componentDidMount()' - runs once on load via empty array as 2nd arg
+	useEffect(() => {
+		axios.get('https://jsonplaceholder.typicode.com/posts?_limit=17')
+			.then(res => changeItemList( res.data ));
+	}, []);
 
+	// Delete item from list
+	// * TODO: Adapt to take list as parameter
 	const handleDelete = (itemId) => {
 		const i = basketList.filter(i => i.id !== itemId );
-		changeList( i );
+		changeBasket( i );
 	}
 	
-	const handleReset = () => {
-		const basket = basketList.map(item => {
-			item.value = 0;
-			return item;
-		});
-		changeList( basket );
+	// Reset basket, currently sets value to 0, should remove all items
+	// * TODO: Refactor to basketReset
+	const handleClear = () => {
+		// const basket = basketList.map(item => {
+		// 	item.value = 0;
+		// 	return item;
+		// });
+		changeBasket([]);
 	}
 	
+	// Handles incrementing/decrementing basket items
 	const handleValueChange = (e, item) => {
 		const valueChange = parseInt(e.currentTarget.value);
 		if(item.value + valueChange < 0) return;
@@ -42,16 +45,29 @@ function App() {
 		const index = basket.indexOf(item);
 		basket[index] = {...item};
 		basket[index].value += valueChange;
-		changeList( basket );
+		changeBasket( basket );
 	}
 
-	const handleAddToBasket = () => {
+	// Add item to basketList
+	// Add quantity var to item
+	const handleAddToBasket = (item) => {
+		const newItem = itemList.filter(i => i.id === item.id)[0];
+		if(!newItem) return;
 
-  }
+		let idx = basketList.indexOf(newItem);
+		
+		if(idx !== -1) {
+			basketList[idx].quantity++;
+		}
+		else {
+			newItem.quantity = 1;
+			const newBasket = [...basketList, newItem];
+			changeBasket( newBasket );
+		}
+	}
 
 	return (
 		<React.Fragment>
-	
 			<Router>
 				<NavBar />
 				<div className='wrapper'>
@@ -61,6 +77,7 @@ function App() {
 							exact
 							render={(props) =>
 								<Store 
+									itemList={itemList}
 									onAddToBasket={handleAddToBasket}
 								/>
 							}
@@ -70,7 +87,7 @@ function App() {
 							render={(props) =>
 								<Basket 
 									basket={basketList}
-									onReset={handleReset} 
+									onClear={handleClear} 
 									onValueChange={handleValueChange}
 									onDelete={handleDelete} 
 								/>

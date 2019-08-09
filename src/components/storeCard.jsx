@@ -17,18 +17,16 @@ class StoreCard extends Component {
   }
 
   render() { 
-    const header = (
-      <img alt='Cat' src='http://placekitten.com/180/100' />
-    );
-
-    const basketButton = (
-      <button className='btn btn-info btn-sm' onClick={this.props.onAddToBasket}> <i className='pi pi-check'/> Add to Basket</button>
-    )
-
     const item = this.props.item;
     const abridgedTitle = formatContent(item.title, 25);
     const abridgedContent = formatContent(item.body, 100);
 
+    const header = (
+      <img alt='Cat' src='http://placekitten.com/180/100' />
+    );
+    const basketButton = (
+      <button className='btn btn-info btn-sm' onClick={this.props.onAddToBasket.bind(this, item)}> <i className='pi pi-check'/> Add to Basket</button>
+    )
     const footer = (
       <div>
         <button 
